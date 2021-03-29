@@ -2,15 +2,11 @@
  * @Author: zhimin
  * @Date: 2021-03-23 17:42:50
  * @LastEditors: zhimin
- * @LastEditTime: 2021-03-24 14:40:02
+ * @LastEditTime: 2021-03-24 17:24:39
  * @FilePath: \hello\src\App.vue
 -->
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
     <router-view />
   </div>
 </template>

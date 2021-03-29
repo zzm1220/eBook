@@ -1,22 +1,32 @@
+/*
+ * @Author: zhimin
+ * @Date: 2021-03-23 17:42:51
+ * @LastEditors: zhimin
+ * @LastEditTime: 2021-03-25 14:37:41
+ * @FilePath: \hello\src\router\index.js
+ */
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
 
 Vue.use(VueRouter)
 
 const routes = [
   {
     path: '/',
-    name: 'Home',
-    component: Home
+    name: 'Root',
+    redirect: '/ebook'
   },
   {
-    path: '/about',
-    name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
+    path: '/ebook',
+    name: 'Ebook',
+    component: () => import(/* webpackChunkName: 'ebook' */ '../views/ebook/index.vue'),
+    children: [
+      {
+        path: ':fileName',
+        props: true,
+        component: () => import(/* webpackChunkName: 'ebookrender' */ '../components/ebook/EbookReader')
+      }
+    ]
   }
 ]
 
