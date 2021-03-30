@@ -2,7 +2,7 @@
  * @Author: zhimin
  * @Date: 2021-03-26 14:12:55
  * @LastEditors: zhimin
- * @LastEditTime: 2021-03-29 10:25:57
+ * @LastEditTime: 2021-03-30 16:45:00
  * @FilePath: \hello\src\components\ebook\EbookSettingFont.vue
 -->
 <template>
@@ -60,6 +60,7 @@
 <script>
 import { ebookMixin } from '../../utils/mixins'
 import { FONT_SIZE_LIST } from '../../utils/book'
+import { saveFontSize } from '../../utils/localStorage'
 export default {
   data () {
     return {
@@ -78,6 +79,7 @@ export default {
       console.log(fontSize)
       this.setDefaultVal(fontSize)
       this.currentBook.rendition.themes.fontSize(fontSize)
+      saveFontSize(this.bookName, fontSize)
     },
     showFontFamilyPopup () {
       this.setFontFamilyVisible(true)

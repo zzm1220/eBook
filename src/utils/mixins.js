@@ -2,7 +2,7 @@
  * @Author: zhimin
  * @Date: 2021-03-26 11:22:41
  * @LastEditors: zhimin
- * @LastEditTime: 2021-03-29 15:18:42
+ * @LastEditTime: 2021-03-30 16:48:29
  * @FilePath: \hello\src\utils\mixins.js
  */
 import { mapGetters, mapActions } from 'vuex'

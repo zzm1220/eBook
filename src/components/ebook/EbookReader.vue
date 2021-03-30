@@ -2,7 +2,7 @@
  * @Author: zhimin
  * @Date: 2021-03-24 17:37:45
  * @LastEditors: zhimin
- * @LastEditTime: 2021-03-29 15:50:23
+ * @LastEditTime: 2021-03-30 16:52:50
  * @FilePath: \hello\src\components\ebook\EbookReader.vue
 -->
 <template>
@@ -14,6 +14,7 @@
 <script>
 import { ebookMixin } from '../../utils/mixins'
 import Epub from 'epubjs'
+import { getFontFamily, saveFontFamily, getFontSize, saveFontSize } from '../../utils/localStorage'
 export default {
   data () {
     return {
@@ -49,7 +50,10 @@ export default {
         height: innerHeight,
         method: 'default'
       })
-      this.rendition.display()
+      this.rendition.display().then(() => {
+        this.initFontSize()
+        this.initFontFamily()
+      })
       this.rendition.on('touchstart', event => {
         console.log(event)
         this.touchStartX = event.changedTouches[0].clientX
@@ -72,6 +76,24 @@ export default {
         contents.addStylesheet(`${process.env.VUE_APP_RES_URL}/fonts/montserrat.css`)
         contents.addStylesheet(`${process.env.VUE_APP_RES_URL}/fonts/tangerine.css`)
       })
+    },
+    initFontSize () {
+      const fontSize = getFontSize(this.bookName)
+      if (!fontSize) {
+        saveFontSize(this.bookName, this.defaultFontSize)
+      } else {
+        this.rendition.themes.fontSize(fontSize)
+        this.setDefaultVal(fontSize)
+      }
+    },
+    initFontFamily () {
+      const fontFamily = getFontFamily(this.bookName)
+      if (!fontFamily) {
+        saveFontFamily(this.bookName, this.defaultFontFamily)
+      } else {
+        this.rendition.themes.font(fontFamily)
+        this.setDefaultFamily(fontFamily)
+      }
     },
     prevPage () {
       console.log('prevPage')

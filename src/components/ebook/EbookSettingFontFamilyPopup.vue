@@ -2,7 +2,7 @@
  * @Author: zhimin
  * @Date: 2021-03-29 10:08:34
  * @LastEditors: zhimin
- * @LastEditTime: 2021-03-29 17:18:45
+ * @LastEditTime: 2021-03-30 16:43:55
  * @FilePath: \hello\src\components\ebook\EbookSettingFontFamilyPopup.vue
 -->
 <template>
@@ -36,7 +36,7 @@
 <script>
 import { ebookMixin } from '../../utils/mixins'
 import { FONT_FAMILY_LIST } from '../../utils/book'
-import { setLocalStorage } from '../../utils/localStorage'
+import { saveFontFamily } from '../../utils/localStorage'
 export default {
   data () {
     return {
@@ -48,7 +48,6 @@ export default {
 
   },
   mounted () {
-    setLocalStorage(this.bookName, this.defaultFontFamily)
   },
   methods: {
     handleHide () {
@@ -59,6 +58,7 @@ export default {
     },
     setFontFamily (font) {
       this.setDefaultFamily(font)
+      saveFontFamily(this.bookName, font)
       if (font === 'Default') {
         this.currentBook.rendition.themes.font('Times New Roman')
       } else {
