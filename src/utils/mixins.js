@@ -2,10 +2,11 @@
  * @Author: zhimin
  * @Date: 2021-03-26 11:22:41
  * @LastEditors: zhimin
- * @LastEditTime: 2021-03-30 16:48:29
+ * @LastEditTime: 2021-03-31 17:36:18
  * @FilePath: \hello\src\utils\mixins.js
  */
 import { mapGetters, mapActions } from 'vuex'
+import { themeList, addCss } from './book'
 
 export const ebookMixin = {
   computed: {
@@ -15,10 +16,13 @@ export const ebookMixin = {
       settingVisible: 'settingVisible',
       defaultFontSize: 'defaultFontSize',
       defaultFontFamily: 'defaultFontFamily',
+      defaultTheme: 'defaultTheme',
       fontFamilyVisible: 'fontFamilyVisible',
       currentBook: 'currentBook'
+    }),
+    themeList () {
+      return themeList(this)
     }
-    )
   },
   methods: {
     ...mapActions([
@@ -29,7 +33,15 @@ export const ebookMixin = {
       'setDefaultVal',
       'setCurrentBook',
       'setFontFamilyVisible',
-      'setDefaultFamily'
-    ])
+      'setDefaultFamily',
+      'setDefaultTheme'
+    ]),
+    initGlobalStyle () {
+      let theme = this.defaultTheme
+      if (!theme) theme = 'Default'
+      console.log(theme)
+      console.log(`${process.env.VUE_APP_RES_URL}/theme/theme_${theme}.css`)
+      addCss(`${process.env.VUE_APP_RES_URL}/theme/theme_${theme}.css`)
+    }
   }
 }

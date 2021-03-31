@@ -2,7 +2,7 @@
  * @Author: zhimin
  * @Date: 2021-03-24 17:37:45
  * @LastEditors: zhimin
- * @LastEditTime: 2021-03-30 16:52:50
+ * @LastEditTime: 2021-03-31 17:35:00
  * @FilePath: \hello\src\components\ebook\EbookReader.vue
 -->
 <template>
@@ -14,7 +14,7 @@
 <script>
 import { ebookMixin } from '../../utils/mixins'
 import Epub from 'epubjs'
-import { getFontFamily, saveFontFamily, getFontSize, saveFontSize } from '../../utils/localStorage'
+import { getFontFamily, saveFontFamily, getFontSize, saveFontSize, getTheme, saveTheme } from '../../utils/localStorage'
 export default {
   data () {
     return {
@@ -53,6 +53,8 @@ export default {
       this.rendition.display().then(() => {
         this.initFontSize()
         this.initFontFamily()
+        this.initTheme()
+        this.initGlobalStyle()
       })
       this.rendition.on('touchstart', event => {
         console.log(event)
@@ -94,6 +96,19 @@ export default {
         this.rendition.themes.font(fontFamily)
         this.setDefaultFamily(fontFamily)
       }
+    },
+    initTheme () {
+      let defaultTheme = getTheme(this.bookName)
+      if (!defaultTheme) {
+        defaultTheme = this.themeList[0].name
+        saveTheme(this.bookName, defaultTheme)
+      }
+      this.themeList.forEach(theme => {
+        this.rendition.themes.register(theme.name, theme.style)
+      })
+      this.setDefaultTheme(defaultTheme).then(() => {
+        this.rendition.themes.select(defaultTheme)
+      })
     },
     prevPage () {
       console.log('prevPage')

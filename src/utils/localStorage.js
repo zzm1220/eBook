@@ -2,7 +2,7 @@
  * @Author: zhimin
  * @Date: 2021-03-29 16:52:40
  * @LastEditors: zhimin
- * @LastEditTime: 2021-03-30 16:43:25
+ * @LastEditTime: 2021-03-31 15:42:44
  * @FilePath: \hello\src\utils\localStorage.js
  */
 import Storage from 'web-storage-cache'
@@ -53,4 +53,10 @@ export function getFontSize (fileName) {
 }
 export function saveFontSize (fileName, fontSize) {
   return setBookLocalStorage(fileName, 'fontSize', fontSize)
+}
+export function getLocale () {
+  return getLocalStorage('locale')
+}
+export function saveLocale (locale) {
+  return setLocalStorage('locale', locale)
 }

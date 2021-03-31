@@ -2,7 +2,7 @@
  * @Author: zhimin
  * @Date: 2021-03-26 10:03:42
  * @LastEditors: zhimin
- * @LastEditTime: 2021-03-29 10:16:27
+ * @LastEditTime: 2021-03-31 16:52:20
  * @FilePath: \hello\src\components\ebook\EbookMenu.vue
 -->
 <template>
@@ -31,15 +31,17 @@
     </transition>
     <ebook-setting-font></ebook-setting-font>
     <ebook-setting-font-family-popup></ebook-setting-font-family-popup>
+    <ebook-setting-theme></ebook-setting-theme>
   </div>
 </template>
 
 <script>
 import { ebookMixin } from '../../utils/mixins'
 import EbookSettingFont from './EbookSettingFont.vue'
+import EbookSettingTheme from './EbookSettingTheme.vue'
 import EbookSettingFontFamilyPopup from './EbookSettingFontFamilyPopup.vue'
 export default {
-  components: { EbookSettingFont, EbookSettingFontFamilyPopup },
+  components: { EbookSettingFont, EbookSettingFontFamilyPopup, EbookSettingTheme },
   data () {
     return {
 
@@ -60,7 +62,7 @@ export default {
 }
 </script>
 
-<style scoped lang="scss">
+<style lang="scss">
 @import '../../assets/styles/global.scss';
 .menu-wrapper {
   position: absolute;

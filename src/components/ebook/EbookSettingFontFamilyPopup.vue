@@ -2,7 +2,7 @@
  * @Author: zhimin
  * @Date: 2021-03-29 10:08:34
  * @LastEditors: zhimin
- * @LastEditTime: 2021-03-30 16:43:55
+ * @LastEditTime: 2021-03-31 10:09:32
  * @FilePath: \hello\src\components\ebook\EbookSettingFontFamilyPopup.vue
 -->
 <template>
@@ -16,7 +16,7 @@
           class="ebook-popup-title-icon icon"
           @click="handleHide"
         >&#xe606;</span>
-        <span class="ebook-popup-title-text">选择字体</span>
+        <span class="ebook-popup-title-text">{{$t('book.selectFont')}}</span>
       </div>
       <div class="ebook-popup-list-wrapper">
         <div
