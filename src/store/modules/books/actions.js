@@ -2,7 +2,7 @@
  * @Author: zhimin
  * @Date: 2021-03-24 16:03:59
  * @LastEditors: zhimin
- * @LastEditTime: 2021-03-31 14:02:57
+ * @LastEditTime: 2021-04-01 10:53:26
  * @FilePath: \hello\src\store\modules\books\actions.js
  */
 const actions = {
@@ -45,6 +45,16 @@ const actions = {
   setDefaultTheme: ({ commit }, theme) => {
     return commit('SET_DEFAULTTHEME', {
       theme
+    })
+  },
+  setProgress: ({ commit }, progress) => {
+    return commit('SET_PROGRESS', {
+      progress
+    })
+  },
+  setBookAvailable: ({ commit }, bookAvailable) => {
+    return commit('SET_BOOKAVAILABLE', {
+      bookAvailable
     })
   }
 }

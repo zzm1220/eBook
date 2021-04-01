@@ -2,7 +2,7 @@
  * @Author: zhimin
  * @Date: 2021-03-24 15:58:53
  * @LastEditors: zhimin
- * @LastEditTime: 2021-03-31 14:01:08
+ * @LastEditTime: 2021-04-01 10:51:52
  * @FilePath: \hello\src\store\modules\books\getters.js
  */
 const getters = {
@@ -13,6 +13,8 @@ const getters = {
   defaultFontFamily: state => state.defaultFontFamily,
   defaultTheme: state => state.defaultTheme,
   fontFamilyVisible: state => state.fontFamilyVisible,
-  currentBook: state => state.currentBook
+  currentBook: state => state.currentBook,
+  progress: state => state.progress,
+  bookAvailable: state => state.bookAvailable
 }
 export default getters

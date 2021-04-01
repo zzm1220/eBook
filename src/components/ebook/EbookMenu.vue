@@ -2,7 +2,7 @@
  * @Author: zhimin
  * @Date: 2021-03-26 10:03:42
  * @LastEditors: zhimin
- * @LastEditTime: 2021-03-31 16:52:20
+ * @LastEditTime: 2021-04-01 10:12:30
  * @FilePath: \hello\src\components\ebook\EbookMenu.vue
 -->
 <template>
@@ -32,6 +32,7 @@
     <ebook-setting-font></ebook-setting-font>
     <ebook-setting-font-family-popup></ebook-setting-font-family-popup>
     <ebook-setting-theme></ebook-setting-theme>
+    <ebook-setting-progress></ebook-setting-progress>
   </div>
 </template>
 
@@ -40,8 +41,9 @@ import { ebookMixin } from '../../utils/mixins'
 import EbookSettingFont from './EbookSettingFont.vue'
 import EbookSettingTheme from './EbookSettingTheme.vue'
 import EbookSettingFontFamilyPopup from './EbookSettingFontFamilyPopup.vue'
+import EbookSettingProgress from './EbookSettingProgress.vue'
 export default {
-  components: { EbookSettingFont, EbookSettingFontFamilyPopup, EbookSettingTheme },
+  components: { EbookSettingFont, EbookSettingFontFamilyPopup, EbookSettingTheme, EbookSettingProgress },
   data () {
     return {
 

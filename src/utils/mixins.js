@@ -2,7 +2,7 @@
  * @Author: zhimin
  * @Date: 2021-03-26 11:22:41
  * @LastEditors: zhimin
- * @LastEditTime: 2021-03-31 17:36:18
+ * @LastEditTime: 2021-04-01 10:54:54
  * @FilePath: \hello\src\utils\mixins.js
  */
 import { mapGetters, mapActions } from 'vuex'
@@ -18,7 +18,9 @@ export const ebookMixin = {
       defaultFontFamily: 'defaultFontFamily',
       defaultTheme: 'defaultTheme',
       fontFamilyVisible: 'fontFamilyVisible',
-      currentBook: 'currentBook'
+      currentBook: 'currentBook',
+      progress: 'progress',
+      bookAvailable: 'bookAvailable'
     }),
     themeList () {
       return themeList(this)

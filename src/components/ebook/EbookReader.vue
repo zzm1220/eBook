@@ -2,7 +2,7 @@
  * @Author: zhimin
  * @Date: 2021-03-24 17:37:45
  * @LastEditors: zhimin
- * @LastEditTime: 2021-03-31 17:35:00
+ * @LastEditTime: 2021-04-01 15:05:47
  * @FilePath: \hello\src\components\ebook\EbookReader.vue
 -->
 <template>
@@ -45,6 +45,13 @@ export default {
       console.log(this.bookUrl)
       this.book = new Epub(this.bookUrl)
       this.setCurrentBook(this.book)
+      this.initRendition()
+      this.initGesture()
+      this.book.ready.then(() => {
+        return this.book.locations.generate()
+      })
+    },
+    initRendition () {
       this.rendition = this.book.renderTo('read', {
         width: innerWidth,
         height: innerHeight,
@@ -55,22 +62,6 @@ export default {
         this.initFontFamily()
         this.initTheme()
         this.initGlobalStyle()
-      })
-      this.rendition.on('touchstart', event => {
-        console.log(event)
-        this.touchStartX = event.changedTouches[0].clientX
-        this.timeStamp = event.timeStamp
-      })
-      this.rendition.on('touchend', event => {
-        const offsetX = event.changedTouches[0].clientX - this.touchStartX
-        const time = event.timeStamp - this.timeStamp
-        if (time < 500 && offsetX > 40) {
-          this.nextPage()
-        } else if (time < 500 && offsetX < -40) {
-          this.prevPage()
-        } else {
-          this.toggleTitleAndMenu()
-        }
       })
       this.rendition.hooks.content.register(contents => {
         contents.addStylesheet(`${process.env.VUE_APP_RES_URL}/fonts/cabin.css`)
@@ -108,6 +99,24 @@ export default {
       })
       this.setDefaultTheme(defaultTheme).then(() => {
         this.rendition.themes.select(defaultTheme)
+      })
+    },
+    initGesture () {
+      this.rendition.on('touchstart', event => {
+        console.log(event)
+        this.touchStartX = event.changedTouches[0].clientX
+        this.timeStamp = event.timeStamp
+      })
+      this.rendition.on('touchend', event => {
+        const offsetX = event.changedTouches[0].clientX - this.touchStartX
+        const time = event.timeStamp - this.timeStamp
+        if (time < 500 && offsetX > 40) {
+          this.nextPage()
+        } else if (time < 500 && offsetX < -40) {
+          this.prevPage()
+        } else {
+          this.toggleTitleAndMenu()
+        }
       })
     },
     prevPage () {
