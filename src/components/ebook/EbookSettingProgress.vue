@@ -2,7 +2,7 @@
  * @Author: zhimin
  * @Date: 2021-04-01 09:32:09
  * @LastEditors: zhimin
- * @LastEditTime: 2021-04-01 11:22:21
+ * @LastEditTime: 2021-04-02 11:18:55
  * @FilePath: \hello\src\components\ebook\EbookSettingProgress.vue
 -->
 <template>
@@ -20,11 +20,11 @@
           class="progress-wrapper"
           v-show="bookAvailable"
         >
-          <div class="progress-icon-wrapper">
-            <span
-              class="icon icon-back"
-              @click="prevSection()"
-            >&#xe6db;</span>
+          <div
+            class="progress-icon-wrapper"
+            @click="prevSection()"
+          >
+            <span class="icon icon-back">&#xe6db;</span>
           </div>
           <input
             class="progress"
@@ -36,14 +36,18 @@
             @input="onProgressInput($event.target.value)"
             :value="progress"
             :disabled="!bookAvailable"
+            :style="{'background-size': `${progress}% 100% !important`}"
             ref="progress"
           >
-          <div class="progress-icon-wrapper">
-            <span
-              class="icon icon-next"
-              @click="nextSection()"
-            >&#xe605;</span>
+          <div
+            class="progress-icon-wrapper"
+            @click="nextSection()"
+          >
+            <span class="icon icon-next">&#xe605;</span>
           </div>
+        </div>
+        <div class="progress-percent-wrapper">
+          <span>{{progress}}%</span>
         </div>
         <div
           class="text-wrapper"
@@ -72,20 +76,54 @@ export default {
   },
   methods: {
     // 进度条拖动松手调用方法
-    onProgressChange (value) {
+    onProgressChange (progress) {
       // const percentage = progress / 100
-      console.log(value)
+      console.log(progress)
+      this.setProgress(progress).then(() => {
+        this.displayProgress()
+        // this.updateProgressBg()
+      })
     },
     // 进度条拖到过程中调用方法
-    onProgressInput (value) {
-      console.log(value)
+    onProgressInput (progress) {
+      this.setProgress(progress)
     },
+    // 切换到上一章
     prevSection () {
-
+      if (this.bookAvailable && this.section > 0) {
+        this.setSection(this.section - 1).then(() => {
+          this.setSection(this.section - 1).then(() => {
+            this.displaySection()
+          })
+        })
+      }
     },
+    // 切换到下一章
     nextSection () {
+      console.log(this.currentBook.spine)
+      if (this.bookAvailable && this.section < (this.currentBook.spine.length - 1)) {
+        this.setSection(this.section + 1).then(() => {
+          this.displaySection()
+        })
+      }
+    },
+    displaySection () {
+      const sectionInfo = this.currentBook.section(this.section)
+      if (sectionInfo && sectionInfo.href) {
+        this.currentBook.rendition.display(sectionInfo.href)
+      }
+    },
+    displayProgress () {
+      const cfi = this.currentBook.locations.cfiFromPercentage(this.progress / 100)
+      console.log(cfi)
+      this.currentBook.rendition.display(cfi)
+    },
+    refreshLocation () {
 
     }
+    // updateProgressBg () {
+    //   this.$refs.progress.style.backgroundSize = `${this.progress}% 100%`
+    // }
   }
 }
 </script>
@@ -138,8 +176,8 @@ export default {
         width: 100%;
         -webkit-appearance: none;
         height: px2rem(2);
-        background: -webkit-linear-gradient(#999, #999) no-repeat, #ddd;
-        background-size: 0 100% !important;
+        // background: -webkit-linear-gradient(#999, #999) no-repeat, #ddd;
+        // background-size: 0 100% !important;
         &:focus {
           outline: none;
         }
@@ -153,6 +191,14 @@ export default {
           box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.15);
         }
       }
+    }
+    .progress-percent-wrapper {
+      width: 100%;
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: px2rem(14);
     }
     .text-wrapper {
       flex: 1;

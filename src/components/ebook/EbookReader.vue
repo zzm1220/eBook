@@ -2,7 +2,7 @@
  * @Author: zhimin
  * @Date: 2021-03-24 17:37:45
  * @LastEditors: zhimin
- * @LastEditTime: 2021-04-01 15:05:47
+ * @LastEditTime: 2021-04-02 09:49:46
  * @FilePath: \hello\src\components\ebook\EbookReader.vue
 -->
 <template>
@@ -48,7 +48,10 @@ export default {
       this.initRendition()
       this.initGesture()
       this.book.ready.then(() => {
-        return this.book.locations.generate()
+        return this.book.locations.generate(750 * (window.innerWidth / 375) * (getFontSize(this.bookName) / 16))
+      }).then(location => {
+        console.log(location)
+        this.setBookAvailable(true)
       })
     },
     initRendition () {

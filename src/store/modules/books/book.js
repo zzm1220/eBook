@@ -2,7 +2,7 @@
  * @Author: zhimin
  * @Date: 2021-03-24 14:55:09
  * @LastEditors: zhimin
- * @LastEditTime: 2021-04-01 11:02:01
+ * @LastEditTime: 2021-04-02 10:46:57
  * @FilePath: \hello\src\store\modules\books\book.js
  */
 import getters from './getters'
@@ -19,7 +19,8 @@ const book = {
     fontFamilyVisible: false,
     currentBook: null,
     progress: 0,
-    bookAvailable: true
+    bookAvailable: false,
+    section: 0
   },
   getters,
   actions,

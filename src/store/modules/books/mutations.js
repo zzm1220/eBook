@@ -2,7 +2,7 @@
  * @Author: zhimin
  * @Date: 2021-03-24 16:03:46
  * @LastEditors: zhimin
- * @LastEditTime: 2021-04-01 10:53:11
+ * @LastEditTime: 2021-04-02 10:51:10
  * @FilePath: \hello\src\store\modules\books\mutations.js
  */
 const mutations = {
@@ -38,6 +38,9 @@ const mutations = {
   },
   SET_BOOKAVAILABLE: (state, { bookAvailable }) => {
     state.bookAvailable = bookAvailable
+  },
+  SET_SECTION: (state, { section }) => {
+    state.section = section
   }
 }
 export default mutations
